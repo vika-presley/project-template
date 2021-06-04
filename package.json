@@ -1,0 +1,29 @@
+{
+  "name": "front-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Viktoriia Fukleva",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.14",
+    "gulp": "latest",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-cheerio": "^1.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-notify": "^4.0.0",
+    "gulp-pug": "^4.0.1",
+    "gulp-replace": "^1.1.3",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-svg-sprite": "^1.5.0",
+    "gulp-svgmin": "^3.0.0",
+    "gulp-terser": "^2.0.1",
+    "gulp-tinypng-compress": "^1.2.5"
+  }
+}
