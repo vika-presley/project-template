@@ -24,6 +24,6 @@
     "gulp-svg-sprite": "^1.5.0",
     "gulp-svgmin": "^3.0.0",
     "gulp-terser": "^2.0.1",
-    "gulp-tinypng-compress": "^1.2.5"
+    "gulp-webp": "^4.0.1"
   }
 }

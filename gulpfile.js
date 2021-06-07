@@ -10,11 +10,11 @@ const gulp = require('gulp'),
     concat = require('gulp-concat'),
     cssmin = require('gulp-cssmin'),
     terser = require('gulp-terser'),
-    tinypng = require('gulp-tinypng-compress'),
     svgmin = require('gulp-svgmin'),
     svgSprite = require('gulp-svg-sprite'),
     cheerio = require('gulp-cheerio'),
-    replace = require('gulp-replace');
+    replace = require('gulp-replace'),
+    webp = require('gulp-webp');
 
 
 //подключение pug, компиляция в html
@@ -80,25 +80,13 @@ gulp.task('js', function () {
         .pipe(browserSync.reload({stream: true}));
 });
 
-//сжатие PNG изображений
-gulp.task('compressImg:dev', function () {
+//конвертируем изображения в webP
 
-    return gulp.src('src/static/img/**/*.{png,jpg,jpeg}')
-        .pipe(gulp.dest('build/img'));
-
-});
-
-gulp.task('compressImg:build', function () {
-
-    return gulp.src('src/static/img/**/*.{png,jpg,jpeg}')
-        .pipe(tinypng({
-            key: 'VXwdMlXrzKG0GdtrM7Z2s4RcsqKjK0zp',
-            sigFile: 'build/img/.tinypng-sigs',
-            log: true
-        }))
-        .pipe(gulp.dest('build/img'));
-
-});
+gulp.task('webP', () =>
+    gulp.src('src/static/img/**/*.{png,jpg,jpeg}')
+        .pipe(webp({quality: 50}))
+        .pipe(gulp.dest('build/img'))
+);
 
 //svg-спрайт
 gulp.task('svg', function () {
@@ -135,19 +123,13 @@ gulp.task('watch', function () {
     gulp.watch('src/pug/**/*.pug', gulp.series('pug'));
     gulp.watch('src/static/scss/**/*.scss', gulp.series('sass'));
     gulp.watch('src/static/js/main.js', gulp.series('js'));
-    gulp.watch('src/static/img/**/*', gulp.series('compressImg:dev'));
+    gulp.watch('src/static/img/**/*', gulp.series('webP'));
     gulp.watch('src/static/img/svg/*.svg', gulp.series('svg'));
 });
 
 
 //дефолт-таск
 gulp.task('default', gulp.series(
-    gulp.parallel('pug', 'sass', 'js', 'compressImg:dev', 'svg'),
-    gulp.parallel('watch', 'serve')
-));
-
-//билд-таск
-gulp.task('build', gulp.series(
-    gulp.parallel('pug', 'sass', 'js', 'compressImg:build', 'svg'),
+    gulp.parallel('pug', 'sass', 'js', 'webP', 'svg'),
     gulp.parallel('watch', 'serve')
 ));
